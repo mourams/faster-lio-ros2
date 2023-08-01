@@ -1,3 +1,26 @@
+### FasterLIO-ROS2
+
+This is an **ROS2 fork** of the original [FasterLIO](https://github.com/gaoxiang12/faster-lio) algorithm, tested with Foxy and Humble distributions. 
+- Currenly, only the *online* mode is supported.
+- Please note that the [livox_ros2_driver](https://github.com/Livox-SDK/livox_ros2_driver) is now required for compiling the package, as the message definitions are no longer included.
+
+**Instructions**:
+
+Clone to your repository and compile the package using `colcon`:
+```
+cd ${ROS2_WORKSPACE}/src
+git clone https://github.com/mourams/faster-lio-ros2
+cd ..
+colcon build
+```
+
+Source your repository and launch the online mapping node:
+```
+ros2 launch faster_lio mapping.launch.py
+```
+
+**Disclaimer**: This is an **experimental** fork for testing purposes only. While best efforts are made to ensure FasterLIO's performance is preserved, no guarantees are given on that. Therefore, use this repository at your own risk.
+
 ## FasterLIO
 
 This is the code repository of FasterLIO by Chunge Bai, Tao Xiang, Yajie Chen, Haoqian Wang, Fang Zhang and Xiang Gao.
