@@ -15,42 +15,49 @@ if (CUSTOM_TBB_DIR)
     link_directories(${TBB2018_LIBRARY_DIR})
 endif ()
 
-find_package(catkin REQUIRED COMPONENTS
+find_package(ament_cmake REQUIRED)
+find_package(geometry_msgs REQUIRED)
+find_package(nav_msgs REQUIRED)
+find_package(sensor_msgs REQUIRED)
+find_package(rclcpp REQUIRED)
+find_package(rclpy REQUIRED)
+find_package(std_msgs REQUIRED)
+find_package(pcl_ros REQUIRED)
+find_package(tf2_ros REQUIRED)
+find_package(tf2_eigen REQUIRED)
+find_package(livox_interfaces REQUIRED)
+find_package(rosidl_default_generators REQUIRED)
+
+set(dependencies
         geometry_msgs
         nav_msgs
         sensor_msgs
-        roscpp
-        rospy
+        rclcpp
+        rclpy
         std_msgs
         pcl_ros
-        tf
-        message_generation
-        eigen_conversions
-        )
-
-
-add_message_files(
-        FILES
-        Pose6D.msg
+        tf2_ros
+        tf2_eigen
+        livox_interfaces
 )
 
-generate_messages(
-        DEPENDENCIES
-        geometry_msgs
-)
-catkin_package(
-        CATKIN_DEPENDS geometry_msgs nav_msgs roscpp rospy std_msgs message_runtime
-        DEPENDS EIGEN3 PCL
-        INCLUDE_DIRS
+rosidl_generate_interfaces(
+  ${PROJECT_NAME}_msg
+  msg/Pose6D.msg
+  DEPENDENCIES
+    geometry_msgs
 )
 
+install(DIRECTORY
+  launch config rviz
+  DESTINATION share/${PROJECT_NAME}/
+)
 
 find_package(Eigen3 REQUIRED)
 find_package(PCL 1.8 REQUIRED)
 find_package(yaml-cpp REQUIRED)
 
 include_directories(
-        ${catkin_INCLUDE_DIRS}
         ${EIGEN3_INCLUDE_DIR}
         ${PCL_INCLUDE_DIRS}
         ${PYTHON_INCLUDE_DIRS}
